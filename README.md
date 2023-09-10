@@ -2,7 +2,6 @@
 
 ![Header image](extras/B.jpg)
 
-**Minesweeper** is a classic puzzle game implemented in Python with an intuitive GUI and multiple difficulty levels. Test your logic skills and enjoy hours of challenging fun.
 
 <br>
 
