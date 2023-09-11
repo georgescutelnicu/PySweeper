@@ -36,6 +36,20 @@
 
 <br>
 
+## Clone Repository and Start the Game
+```bash
+git clone https://github.com/georgescutelnicu/minesweeper.git
+```
+```bash
+python main.py
+```
+<br>
+
+## Prerequisites
+- Make sure you have Python 3.x installed on your system.
+
+<br>
+
 ## Screenshots
 <img src="extras/D.png" width="200">
 <img src="extras/N.png" width="200">
