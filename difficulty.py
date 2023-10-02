@@ -13,8 +13,7 @@ class Difficulty:
         self.window.geometry(f"+{self.window.winfo_screenwidth() // 4}+{self.window.winfo_screenheight() // 8}")
         self.window.title("Choose Difficulty")
 
-        self.difficulty = None
-        self.difficulty_level = tk.StringVar(value="none")
+        self.difficulty_level = tk.StringVar(value="easy")
 
         self.easy_radio = tk.Radiobutton(self.window, text="Easy", variable=self.difficulty_level, value="easy", font=("Helvetica", 12), command=self.update_difficulty)
         self.medium_radio = tk.Radiobutton(self.window, text="Medium", variable=self.difficulty_level, value="medium", font=("Helvetica", 12), command=self.update_difficulty)
@@ -30,10 +29,10 @@ class Difficulty:
 
     def update_difficulty(self):
         """
-        Update the selected difficulty based on the radio button choice.
+        Update the difficulty based on the radio button choice.
         """
 
-        self.difficulty = self.difficulty_level.get()
+        return self.difficulty_level.get()
 
 
     def choose_difficulty(self):
@@ -43,4 +42,4 @@ class Difficulty:
 
         self.window.mainloop()
         self.window.destroy()
-        return self.difficulty
+        return self.difficulty_level.get()
