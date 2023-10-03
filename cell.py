@@ -1,7 +1,3 @@
-import tkinter as tk
-
-
-
 class Cell:
 
     def __init__(self, board, row, col):
@@ -49,16 +45,12 @@ class Cell:
             self.board.is_game_in_progress()
 
 
-    def flag(self, row, col):
+    def flag(self):
         """
         Toggles is_flag variable on or off.
 
         If the cell is not revealed and not already flagged, it flags the cell.
         If the cell is already flagged, it unflags it.
-
-        Parameters:
-        - row (int): The row index of the cell.
-        - col (int): The column index of the cell.
         """
 
         if self.board.game_is_on == 1:

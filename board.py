@@ -4,7 +4,7 @@ from cell import Cell
 
 
 
-class Board:
+class Board(tk.Tk):
 
     def __init__(self, size, mines):
         """
@@ -14,11 +14,11 @@ class Board:
         - size (int): The size of the board. (It is chosen based on the difficulty)
         - mines (int): The number of mines to be placed on the board. (It is chosen based on the difficulty)
         """
+        super().__init__()
 
         self.size = size
         self.mines = mines
-        self.window = tk.Tk()
-        self.window.geometry(f"+{self.window.winfo_screenwidth() // 4}+{self.window.winfo_screenheight() // 8}")
+        self.geometry(f"+{self.winfo_screenwidth() // 4}+{self.winfo_screenheight() // 8}")
         self.images = {
             '0':   tk.PhotoImage(file='images/0.png'),
             '1': tk.PhotoImage(file='images/1.png'),
@@ -37,6 +37,12 @@ class Board:
             'red': tk.PhotoImage(file='images/red.png'),
             'timer': tk.PhotoImage(file='images/timer.png')
         }
+
+        self.mines_label = None
+        self.timer_label = None
+        self.btn_img = None
+        self.update_timer_id = None
+
         self.buttons = [[Cell(self, row, col) for col in range(size)] for row in range(size)]
         self.game_is_on = 1
         self.timer_value = 0
@@ -44,7 +50,7 @@ class Board:
         self.create_board()
         self.update_timer()
         self.generate_mines()
-        self.window.mainloop()
+        self.mainloop()
 
 
     def create_board(self):
@@ -52,11 +58,11 @@ class Board:
         Create and initialize the graphical game board with buttons and labels.
         """
 
-        self.window.title("Minesweeper")
+        self.title("Minesweeper")
 
         pad = self.size * 10 if self.size == 10 else self.size * 14
 
-        label_frame = tk.Frame(self.window)
+        label_frame = tk.Frame(self)
         label_frame.grid(row=0, column=0, columnspan=self.size, pady=10)
 
         mines_img = tk.Label(label_frame, image=self.images['bomb'])
@@ -72,13 +78,13 @@ class Board:
         self.btn_img = tk.Button(label_frame, image=self.images['yellow'], font=('normal', 15), command=self.restart_game)
         self.btn_img.grid(row=0, column=self.size // 2, padx=pad)
 
-        for row in range(self.size):
-            for col in range(self.size):
-                button = tk.Button(self.window, width=40, height=40, relief='ridge',
-                                       command=self.buttons[row][col].reveal_cell, image=self.images['tile'])
-                button.grid(row=row+1, column=col)
-                button.bind("<Button-3>", lambda event, row=row, col=col: self.buttons[row][col].flag(row, col))
-                self.buttons[row][col].btn = button
+        for r in range(self.size):
+            for c in range(self.size):
+                button = tk.Button(self, width=40, height=40, relief='ridge',
+                                       command=self.buttons[r][c].reveal_cell, image=self.images['tile'])
+                button.grid(row=r+1, column=c)
+                button.bind("<Button-3>", lambda event, row=r, col=c: self.buttons[row][col].flag())
+                self.buttons[r][c].btn = button
 
 
     def generate_mines(self):
@@ -99,7 +105,7 @@ class Board:
             columns_range = range(mine[1] - 1, mine[1] + 2)
             for i in row_range:
                 for j in columns_range:
-                    if (0 <= i < self.size and 0 <= j < self.size):
+                    if (0 <= i < self.size) and (0 <= j < self.size):
                         self.buttons[i][j].neighbor_mine_count += 1
 
 
@@ -123,7 +129,7 @@ class Board:
                 neighbors.append((r, c))
 
         for n in neighbors:
-            if (0 <= n[0] < self.size and 0 <= n[1] < self.size):
+            if (0 <= n[0] < self.size) and (0 <= n[1] < self.size):
                 neighbor_cell = self.buttons[n[0]][n[1]]
 
                 if not neighbor_cell.is_revealed:
@@ -135,8 +141,8 @@ class Board:
         Check if the game has been lost by revealing a mine.
         """
 
-        for row in self.buttons:
-            for cell in row:
+        for r in self.buttons:
+            for cell in r:
                 if cell.has_mine and cell.is_revealed:
                     self.game_is_on = 0
 
@@ -148,8 +154,8 @@ class Board:
 
         squares_discovered = 0
 
-        for row in self.buttons:
-            for cell in row:
+        for r in self.buttons:
+            for cell in r:
                 if not cell.has_mine and cell.is_revealed:
                     squares_discovered += 1
                     if squares_discovered == ((self.size*self.size)-self.mines):
@@ -166,15 +172,15 @@ class Board:
 
         if self.game_is_on == 0:
             self.btn_img.config(image=self.images['red'])
-            for row in self.buttons:
-                for cell in row:
+            for r in self.buttons:
+                for cell in r:
                     if cell.has_mine:
                         cell.btn.config(image=self.images['bomb'])
 
         elif self.game_is_on == 2:
             self.btn_img.config(image=self.images['green'])
-            for row in self.buttons:
-                for cell in row:
+            for r in self.buttons:
+                for cell in r:
                     if cell.has_mine:
                         cell.btn.config(image=self.images['flag'])
             self.mines_label.config(text='0')
@@ -205,7 +211,7 @@ class Board:
         if self.game_is_on == 1:
             self.timer_label.config(text=f"{self.timer_value} ")
             self.timer_value += 1
-            self.update_timer_id = self.window.after(1000, self.update_timer)
+            self.update_timer_id = self.after(1000, self.update_timer)
 
 
     def restart_game(self):
@@ -213,6 +219,6 @@ class Board:
         Restart the game by destroying the current window and creating a new game instance.
         """
 
-        self.window.after_cancel(self.update_timer_id)
-        self.window.destroy()
-        new_game = Board(size=self.size, mines=self.mines)
+        self.after_cancel(self.update_timer_id)
+        self.destroy()
+        Board(size=self.size, mines=self.mines)

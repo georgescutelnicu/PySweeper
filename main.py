@@ -12,7 +12,7 @@ if __name__ == "__main__":
     elif selected_difficulty == 'medium':
         size = 16
         mines = 40
-    elif selected_difficulty == 'hard':
+    else:
         size = 20
         mines = 70
 
