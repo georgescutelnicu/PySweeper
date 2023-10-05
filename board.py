@@ -35,8 +35,10 @@ class Board(tk.Tk):
             'yellow': tk.PhotoImage(file='images/yellow.png'),
             'green': tk.PhotoImage(file='images/green.png'),
             'red': tk.PhotoImage(file='images/red.png'),
-            'timer': tk.PhotoImage(file='images/timer.png')
+            'timer': tk.PhotoImage(file='images/timer.png'),
+            'window_icon': tk.PhotoImage(file='images/icon.png')
         }
+        self.iconphoto(False, self.images['window_icon'])
 
         self.mines_label = None
         self.timer_label = None
