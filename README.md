@@ -19,8 +19,7 @@
 - Left-click to reveal cells. The number inside a cell indicates the number of neighboring mines.
 - Right-click to flag potential mines. Use flags to mark cells you suspect contain mines.
 - Be cautious! If you reveal a cell with a mine, you lose the game.
-- Win by revealing all safe cells or flagging all mines.
-
+- Win by revealing all safe cells.
 <br>
 
 ## Choose your preferred challenge:
