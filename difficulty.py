@@ -1,17 +1,21 @@
 import tkinter as tk
 
 
+
 class Difficulty(tk.Tk):
 
     def __init__(self):
+        super().__init__()
         """
         Initialize the difficulty selection window.
         """
-        super().__init__()
 
+        # self.window = tk.Tk()
         self.geometry(f"+{self.winfo_screenwidth() // 4}+{self.winfo_screenheight() // 8}")
         self.title("Choose Difficulty")
+        self.iconphoto(False, tk.PhotoImage(file='images/settings.png'))
 
+        # self.difficulty = None
         self.difficulty_level = tk.StringVar(value="easy")
 
         self.easy_radio = tk.Radiobutton(self, text="Easy", variable=self.difficulty_level, value="easy", font=("Helvetica", 12), command=self.update_difficulty)
@@ -31,8 +35,8 @@ class Difficulty(tk.Tk):
         Update the difficulty based on the radio button choice.
         """
 
+        # self.difficulty_level = self.difficulty_level.get()
         return self.difficulty_level.get()
-
 
     def choose_difficulty(self):
         """
