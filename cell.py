@@ -19,7 +19,6 @@ class Cell:
         self.btn = None
         self.board = board
 
-
     def reveal_cell(self):
         """
         Reveals the cell and updates its appearance.
@@ -34,7 +33,7 @@ class Cell:
             if self.has_mine:
                 self.btn.config(relief='raised', image=self.board.images['bomb'])
             else:
-                self.btn.config(text=self.neighbor_mine_count , image=self.board.images[f'{self.neighbor_mine_count}'])
+                self.btn.config(text=self.neighbor_mine_count, image=self.board.images[f'{self.neighbor_mine_count}'])
 
                 if self.neighbor_mine_count == 0:
                     self.board.reveal_neighbors(self.row, self.col)
@@ -43,7 +42,6 @@ class Cell:
                     self.board.update_mines_label(1)
 
             self.board.is_game_in_progress()
-
 
     def flag(self):
         """
