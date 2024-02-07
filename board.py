@@ -3,7 +3,6 @@ import random
 from cell import Cell
 
 
-
 class Board(tk.Tk):
 
     def __init__(self, size, mines):
@@ -20,7 +19,8 @@ class Board(tk.Tk):
         self.mines = mines
         self.geometry(f"+{self.winfo_screenwidth() // 4}+{self.winfo_screenheight() // 8}")
         self.images = {
-            '0':   tk.PhotoImage(file='images/0.png'),
+            'safe_tile': tk.PhotoImage(file='images/safe.png'),
+            '0': tk.PhotoImage(file='images/0.png'),
             '1': tk.PhotoImage(file='images/1.png'),
             '2': tk.PhotoImage(file='images/2.png'),
             '3': tk.PhotoImage(file='images/3.png'),
@@ -50,10 +50,13 @@ class Board(tk.Tk):
         self.timer_value = 0
 
         self.create_board()
-        self.update_timer()
-        self.generate_mines()
-        self.mainloop()
+        self.safe_tile = (random.randint(0, self.size - 1), random.randint(0, self.size - 1))
+        self.buttons[self.safe_tile[0]][self.safe_tile[1]].btn.config(image=self.images['safe_tile'])
 
+        self.update_timer()
+        self.generate_mines(safe_tile=self.safe_tile)
+
+        self.mainloop()
 
     def create_board(self):
         """
@@ -73,23 +76,23 @@ class Board(tk.Tk):
         self.mines_label.grid(row=0, column=1, sticky='w')
 
         self.timer_label = tk.Label(label_frame, text="", font=('normal', 15), width=3)
-        self.timer_label.grid(row=0, column=self.size-1, sticky='e')
+        self.timer_label.grid(row=0, column=self.size - 1, sticky='e')
         timer_img = tk.Label(label_frame, image=self.images['timer'])
         timer_img.grid(row=0, column=self.size, sticky='e')
 
-        self.btn_img = tk.Button(label_frame, image=self.images['yellow'], font=('normal', 15), command=self.restart_game)
+        self.btn_img = tk.Button(label_frame, image=self.images['yellow'],
+                                 font=('normal', 15), command=self.restart_game)
         self.btn_img.grid(row=0, column=self.size // 2, padx=pad)
 
         for r in range(self.size):
             for c in range(self.size):
                 button = tk.Button(self, width=40, height=40, relief='ridge',
-                                       command=self.buttons[r][c].reveal_cell, image=self.images['tile'])
-                button.grid(row=r+1, column=c)
+                                   command=self.buttons[r][c].reveal_cell, image=self.images['tile'])
+                button.grid(row=r + 1, column=c)
                 button.bind("<Button-3>", lambda event, row=r, col=c: self.buttons[row][col].flag())
                 self.buttons[r][c].btn = button
 
-
-    def generate_mines(self):
+    def generate_mines(self, safe_tile):
         """
         Randomly generate mine locations and update neighbor mine counts.
         """
@@ -97,8 +100,17 @@ class Board(tk.Tk):
         mines_generated = []
 
         while len(mines_generated) < self.mines:
-            mine = (tuple(random.randint(0, self.size-1) for _ in range(2)))
-            if mine not in mines_generated:
+            mine = (tuple(random.randint(0, self.size - 1) for _ in range(2)))
+            row_range = range(safe_tile[0] - 1, safe_tile[0] + 2)
+            columns_range = range(safe_tile[1] - 1, safe_tile[1] + 2)
+            adjacent_mine = False
+            for i in row_range:
+                for j in columns_range:
+                    if (0 <= i < self.size) and (0 <= j < self.size):
+                        if mine == (i, j):
+                            adjacent_mine = True
+                            break
+            if not adjacent_mine and mine not in mines_generated:
                 mines_generated.append(mine)
 
         for mine in mines_generated:
@@ -109,7 +121,6 @@ class Board(tk.Tk):
                 for j in columns_range:
                     if (0 <= i < self.size) and (0 <= j < self.size):
                         self.buttons[i][j].neighbor_mine_count += 1
-
 
     def reveal_neighbors(self, row, col):
         """
@@ -137,7 +148,6 @@ class Board(tk.Tk):
                 if not neighbor_cell.is_revealed:
                     neighbor_cell.reveal_cell()
 
-
     def check_loss(self):
         """
         Check if the game has been lost by revealing a mine.
@@ -147,7 +157,6 @@ class Board(tk.Tk):
             for cell in r:
                 if cell.has_mine and cell.is_revealed:
                     self.game_is_on = 0
-
 
     def check_win(self):
         """
@@ -160,9 +169,8 @@ class Board(tk.Tk):
             for cell in r:
                 if not cell.has_mine and cell.is_revealed:
                     squares_discovered += 1
-                    if squares_discovered == ((self.size*self.size)-self.mines):
+                    if squares_discovered == ((self.size * self.size) - self.mines):
                         self.game_is_on = 2
-
 
     def is_game_in_progress(self):
         """
@@ -187,7 +195,6 @@ class Board(tk.Tk):
                         cell.btn.config(image=self.images['flag'])
             self.mines_label.config(text='0')
 
-
     def update_mines_label(self, value):
         """
         Update the mines label with the current number of flagged mines.
@@ -204,7 +211,6 @@ class Board(tk.Tk):
         else:
             self.mines_label.config(text=str(new_value))
 
-
     def update_timer(self):
         """
         Update the timer label to display the elapsed time.
@@ -214,7 +220,6 @@ class Board(tk.Tk):
             self.timer_label.config(text=f"{self.timer_value} ")
             self.timer_value += 1
             self.update_timer_id = self.after(1000, self.update_timer)
-
 
     def restart_game(self):
         """
