@@ -13,6 +13,7 @@ class Board(tk.Tk):
         - size (int): The size of the board. (It is chosen based on the difficulty)
         - mines (int): The number of mines to be placed on the board. (It is chosen based on the difficulty)
         """
+
         super().__init__()
 
         self.size = size
@@ -102,10 +103,10 @@ class Board(tk.Tk):
         while len(mines_generated) < self.mines:
             mine = (tuple(random.randint(0, self.size - 1) for _ in range(2)))
             row_range = range(safe_tile[0] - 1, safe_tile[0] + 2)
-            columns_range = range(safe_tile[1] - 1, safe_tile[1] + 2)
+            column_range = range(safe_tile[1] - 1, safe_tile[1] + 2)
             adjacent_mine = False
             for i in row_range:
-                for j in columns_range:
+                for j in column_range:
                     if (0 <= i < self.size) and (0 <= j < self.size):
                         if mine == (i, j):
                             adjacent_mine = True
@@ -116,9 +117,9 @@ class Board(tk.Tk):
         for mine in mines_generated:
             self.buttons[mine[0]][mine[1]].has_mine = True
             row_range = range(mine[0] - 1, mine[0] + 2)
-            columns_range = range(mine[1] - 1, mine[1] + 2)
+            column_range = range(mine[1] - 1, mine[1] + 2)
             for i in row_range:
-                for j in columns_range:
+                for j in column_range:
                     if (0 <= i < self.size) and (0 <= j < self.size):
                         self.buttons[i][j].neighbor_mine_count += 1
 
