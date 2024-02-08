@@ -19,6 +19,7 @@ class Board(tk.Tk):
         self.size = size
         self.mines = mines
         self.geometry(f"+{self.winfo_screenwidth() // 4}+{self.winfo_screenheight() // 8}")
+        self.resizable(False, False)
         self.images = {
             'safe_tile': tk.PhotoImage(file='images/safe.png'),
             '0': tk.PhotoImage(file='images/0.png'),
@@ -68,8 +69,8 @@ class Board(tk.Tk):
 
         pad = self.size * 10 if self.size == 10 else self.size * 14
 
-        label_frame = tk.Frame(self)
-        label_frame.grid(row=0, column=0, columnspan=self.size, pady=10)
+        label_frame = tk.Frame(self, relief='ridge', borderwidth=4)
+        label_frame.grid(row=0, column=0, columnspan=self.size, pady=3)
 
         mines_img = tk.Label(label_frame, image=self.images['bomb'])
         mines_img.grid(row=0, column=0, sticky='w')
@@ -81,13 +82,12 @@ class Board(tk.Tk):
         timer_img = tk.Label(label_frame, image=self.images['timer'])
         timer_img.grid(row=0, column=self.size, sticky='e')
 
-        self.btn_img = tk.Button(label_frame, image=self.images['yellow'],
-                                 font=('normal', 15), command=self.restart_game)
+        self.btn_img = tk.Button(label_frame, image=self.images['yellow'], command=self.restart_game)
         self.btn_img.grid(row=0, column=self.size // 2, padx=pad)
 
         for r in range(self.size):
             for c in range(self.size):
-                button = tk.Button(self, width=40, height=40, relief='ridge',
+                button = tk.Button(self, width=40, height=40, relief='flat', borderwidth=0,
                                    command=self.buttons[r][c].reveal_cell, image=self.images['tile'])
                 button.grid(row=r + 1, column=c)
                 button.bind("<Button-3>", lambda event, row=r, col=c: self.buttons[row][col].flag())
