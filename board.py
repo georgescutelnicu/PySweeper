@@ -206,11 +206,7 @@ class Board(tk.Tk):
 
         current_value = int(self.mines_label.cget("text"))
         new_value = current_value + value
-
-        if new_value < 10:
-            self.mines_label.config(text=f'{str(new_value)}')
-        else:
-            self.mines_label.config(text=str(new_value))
+        self.mines_label.config(text=str(new_value))
 
     def update_timer(self):
         """
