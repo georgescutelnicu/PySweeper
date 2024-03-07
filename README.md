@@ -5,15 +5,6 @@
 
 <br>
 
-## Features
-- **Classic Gameplay:** Experience the timeless thrill of Minesweeper with all its familiar rules and challenges.
-
-- **Intuitive GUI:** Enjoy a user-friendly graphical interface that makes playing and navigating the game a breeze.
-
-- **Difficulty Levels:** Choose from three different difficulty levels—Easy, Medium, and Hard—tailored to your skill level and preference.
-
-<br>
-
 ## Rules
 - The objective is to reveal all safe cells without detonating any mines.
 - Left-click to reveal cells. The number inside a cell indicates the number of neighboring mines.
