@@ -5,7 +5,7 @@ from cell import Cell
 
 class Board(tk.Tk):
 
-    def __init__(self, size, mines):
+    def __init__(self, difficulty):
         """
         Initialize the game board.
 
@@ -16,8 +16,9 @@ class Board(tk.Tk):
 
         super().__init__()
 
-        self.size = size
-        self.mines = mines
+        self.difficulty = difficulty
+        self.size = 10 if self.difficulty == "easy" else 16
+        self.mines = 10 if self.difficulty == "easy" else 40
         self.geometry(f"+{self.winfo_screenwidth() // 4}+{self.winfo_screenheight() // 8}")
         self.resizable(False, False)
         self.images = {
@@ -47,7 +48,7 @@ class Board(tk.Tk):
         self.btn_img = None
         self.update_timer_id = None
 
-        self.buttons = [[Cell(self, row, col) for col in range(size)] for row in range(size)]
+        self.buttons = [[Cell(self, row, col) for col in range(self.size)] for row in range(self.size)]
         self.game_is_on = 1
         self.timer_value = 0
 
