@@ -31,9 +31,9 @@ class Cell:
         if not self.is_revealed and self.board.game_is_on == 1:
             self.is_revealed = True
             if self.has_mine:
-                self.btn.config(relief='raised', image=self.board.images['bomb'])
+                self.btn.config(relief="raised", image=self.board.images["bomb"])
             else:
-                self.btn.config(text=self.neighbor_mine_count, image=self.board.images[f'{self.neighbor_mine_count}'])
+                self.btn.config(text=self.neighbor_mine_count, image=self.board.images[f"{self.neighbor_mine_count}"])
 
                 if self.neighbor_mine_count == 0:
                     self.board.reveal_neighbors(self.row, self.col)
@@ -53,12 +53,12 @@ class Cell:
 
         if self.board.game_is_on == 1:
             if not self.is_revealed and self.is_flagged:
-                self.btn.config(image=self.board.images['tile'])
+                self.btn.config(image=self.board.images["tile"])
                 self.is_flagged = False
                 self.board.update_mines_label(1)
-            elif int(self.board.mines_label.cget('text')) <= 0:
+            elif int(self.board.mines_label.cget("text")) <= 0:
                 return
             elif not self.is_revealed and not self.is_flagged:
-                self.btn.config(image=self.board.images['flag'])
+                self.btn.config(image=self.board.images["flag"])
                 self.is_flagged = True
                 self.board.update_mines_label(-1)
