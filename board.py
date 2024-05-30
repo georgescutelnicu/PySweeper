@@ -226,4 +226,4 @@ class Board(tk.Tk):
 
         self.after_cancel(self.update_timer_id)
         self.destroy()
-        Board(size=self.size, mines=self.mines)
+        Board(difficulty=self.difficulty)
