@@ -1,3 +1,6 @@
+import random
+
+
 class Cell:
 
     def __init__(self, board, row, col):
@@ -16,8 +19,12 @@ class Cell:
         self.is_revealed = False
         self.is_flagged = False
         self.neighbor_mine_count = 0
+        self.puzzle = None
         self.btn = None
         self.board = board
+
+    def set_puzzle(self):
+        self.puzzle = random.choice(self.board.puzzles[self.board.difficulty][str(self.neighbor_mine_count)])
 
     def reveal_cell(self):
         """
@@ -40,6 +47,9 @@ class Cell:
 
                 if self.neighbor_mine_count == 0:
                     self.board.reveal_neighbors(self.row, self.col)
+
+                else:
+                    self.set_puzzle()
 
                 if self.is_flagged:
                     self.board.update_mines_label(1)

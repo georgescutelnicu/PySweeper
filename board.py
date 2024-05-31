@@ -1,5 +1,7 @@
 import tkinter as tk
 import random
+import json
+
 from cell import Cell
 
 
@@ -19,6 +21,7 @@ class Board(tk.Tk):
         self.difficulty = difficulty
         self.size = 10 if self.difficulty == "easy" else 16
         self.mines = 10 if self.difficulty == "easy" else 40
+        self.puzzles = self.load_puzzles('puzzles/puzzles.json')
         self.geometry(f"+{self.winfo_screenwidth() // 4}+{self.winfo_screenheight() // 8}")
         self.resizable(False, False)
         self.images = {
@@ -229,3 +232,7 @@ class Board(tk.Tk):
         self.after_cancel(self.update_timer_id)
         self.destroy()
         Board(difficulty=self.difficulty)
+
+    def load_puzzles(self, filename):
+        with open(filename, 'r') as file:
+            return json.load(file)
