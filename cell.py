@@ -33,7 +33,10 @@ class Cell:
             if self.has_mine:
                 self.btn.config(relief="raised", image=self.board.images["bomb"])
             else:
-                self.btn.config(text=self.neighbor_mine_count, image=self.board.images[f"{self.neighbor_mine_count}"])
+                if self.neighbor_mine_count == 0:
+                    self.btn.config(image=self.board.images["0"])
+                else:
+                    self.btn.config(image=self.board.images["question"])
 
                 if self.neighbor_mine_count == 0:
                     self.board.reveal_neighbors(self.row, self.col)

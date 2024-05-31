@@ -32,7 +32,9 @@ class Board(tk.Tk):
             "6": tk.PhotoImage(file="images/6.png"),
             "7": tk.PhotoImage(file="images/7.png"),
             "8": tk.PhotoImage(file="images/8.png"),
+            "question": tk.PhotoImage(file="images/question.png"),
             "bomb": tk.PhotoImage(file="images/bomb.png"),
+            "bomb_red": tk.PhotoImage(file="images/bomb_red.png"),
             "flag": tk.PhotoImage(file="images/flag.png"),
             "tile": tk.PhotoImage(file="images/tile.png"),
             "yellow": tk.PhotoImage(file="images/yellow.png"),
@@ -187,7 +189,7 @@ class Board(tk.Tk):
             for r in self.buttons:
                 for cell in r:
                     if cell.has_mine:
-                        cell.btn.config(image=self.images["bomb"])
+                        cell.btn.config(image=self.images["bomb_red"])
 
         elif self.game_is_on == 2:
             self.btn_img.config(image=self.images["green"])
