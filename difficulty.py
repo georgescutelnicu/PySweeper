@@ -12,7 +12,7 @@ class Difficulty(tk.Tk):
         # self.window = tk.Tk()
         self.geometry(f"+{self.winfo_screenwidth() // 4}+{self.winfo_screenheight() // 8}")
         self.title("Choose Difficulty")
-        self.iconphoto(False, tk.PhotoImage(file='images/settings.png'))
+        self.iconphoto(False, tk.PhotoImage(file="images/settings.png"))
 
         # self.difficulty = None
         self.difficulty_level = tk.StringVar(value="easy")
