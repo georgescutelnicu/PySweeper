@@ -236,3 +236,58 @@ class Board(tk.Tk):
     def load_puzzles(self, filename):
         with open(filename, 'r') as file:
             return json.load(file)
+
+    def display_puzzle_window(self, cell):
+        """
+        Display a new window with a puzzle when a revealed cell is clicked.
+
+        Parameters:
+        - cell (Cell): The cell object that was clicked.
+        """
+
+        self.puzzle_window = tk.Toplevel(self)
+        self.puzzle_window.title("Puzzle")
+        self.puzzle_window.geometry(f"+{self.winfo_screenwidth() // 4}+{self.winfo_screenheight() // 8}")
+        self.puzzle_window.resizable(False, False)
+        self.puzzle_window.protocol("WM_DELETE_WINDOW", self.display_main_window)
+
+        puzzle_frame = tk.Frame(self.puzzle_window)
+        puzzle_frame.pack(expand=True, fill="both")
+
+        puzzle_text = cell.puzzle
+        puzzle_message = tk.Message(puzzle_frame, text=puzzle_text, font=("Consolas", 12), width=400, justify="center")
+        puzzle_message.pack(expand=True, fill="both")
+        puzzle_height = puzzle_message.winfo_reqheight()
+
+        self.puzzle_window.geometry(f"420x{puzzle_height + 100}")
+
+        button_frame = tk.Frame(self.puzzle_window)
+        button_frame.pack(side="bottom")
+
+        for i in range(8):
+            button = tk.Button(button_frame, width=35, height=35, relief='flat', borderwidth=0,
+                               image=self.images[str(i + 1)],
+                               command=lambda num=i + 1: self.update_cell_image(cell, str(num)))
+            button.pack(side="left", padx=5)
+
+        self.withdraw()
+
+    def update_cell_image(self, cell, image_number):
+        """
+        Update the image of the cell's button and return to the main game window.
+
+        Parameters:
+        - cell (Cell): The cell object whose button image needs to be updated.
+        - image_number (str): The key corresponding to the new image in the self.images dictionary.
+        """
+
+        cell.btn.config(image=self.images[image_number])
+        self.display_main_window()
+
+    def display_main_window(self):
+        """
+        Display the main game window.
+        """
+
+        self.puzzle_window.destroy()
+        self.deiconify()

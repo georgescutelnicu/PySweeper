@@ -35,24 +35,24 @@ class Cell:
         adjacent cells as well.
         """
 
-        if not self.is_revealed and self.board.game_is_on == 1:
-            self.is_revealed = True
-            if self.has_mine:
-                self.btn.config(relief="raised", image=self.board.images["bomb"])
-            else:
-                if self.neighbor_mine_count == 0:
-                    self.btn.config(image=self.board.images["0"])
+        if self.board.game_is_on == 1:
+            if not self.is_revealed:
+                self.is_revealed = True
+                if self.has_mine:
+                    self.btn.config(relief="raised", image=self.board.images["bomb"])
                 else:
-                    self.btn.config(image=self.board.images["question"])
+                    if self.neighbor_mine_count == 0:
+                        self.btn.config(image=self.board.images["0"])
+                        self.board.reveal_neighbors(self.row, self.col)
+                    else:
+                        self.btn.config(image=self.board.images["question"])
+                        self.set_puzzle()
 
-                if self.neighbor_mine_count == 0:
-                    self.board.reveal_neighbors(self.row, self.col)
+                    if self.is_flagged:
+                        self.board.update_mines_label(1)
 
-                else:
-                    self.set_puzzle()
-
-                if self.is_flagged:
-                    self.board.update_mines_label(1)
+            elif not self.has_mine and self.neighbor_mine_count > 0:
+                self.board.display_puzzle_window(self)
 
             self.board.is_game_in_progress()
 
