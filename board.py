@@ -305,6 +305,10 @@ class Board(tk.Tk):
         self.deiconify()
 
     def count_puzzles_solved(self):
+        """
+        Count the number of puzzles solved and puzzles correctly solved.
+        """
+
         for r in self.buttons:
             for cell in r:
                 if cell.user_puzzle_solution > 0:
@@ -313,6 +317,14 @@ class Board(tk.Tk):
                         self.correct_puzzles_solved += 1
 
     def display_alert(self, title, message):
+        """
+        Display an alert message with puzzles stats.
+
+        Parameters:
+        - title (str): The title of the alert window.
+        - message (str): The message content to be displayed in the alert.
+        """
+
         alert_window = tk.Toplevel(self)
 
         x = self.winfo_x() + (self.winfo_width() - 300) // 2

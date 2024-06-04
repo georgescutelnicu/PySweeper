@@ -25,6 +25,10 @@ class Cell:
         self.board = board
 
     def set_puzzle(self):
+        """
+        Set a puzzle for the cell based on the current difficulty and neighboring mines count.
+        """
+
         self.puzzle = random.choice(self.board.puzzles[self.board.difficulty][str(self.neighbor_mine_count)])
 
     def reveal_cell(self):
