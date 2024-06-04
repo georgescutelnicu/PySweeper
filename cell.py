@@ -47,14 +47,13 @@ class Cell:
                     else:
                         self.btn.config(image=self.board.images["question"])
                         self.set_puzzle()
-
                     if self.is_flagged:
                         self.board.update_mines_label(1)
 
+                self.board.is_game_in_progress()
+
             elif not self.has_mine and self.neighbor_mine_count > 0:
                 self.board.display_puzzle_window(self)
-
-            self.board.is_game_in_progress()
 
     def flag(self):
         """
