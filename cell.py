@@ -20,6 +20,7 @@ class Cell:
         self.is_flagged = False
         self.neighbor_mine_count = 0
         self.puzzle = None
+        self.user_puzzle_solution = 0
         self.btn = None
         self.board = board
 

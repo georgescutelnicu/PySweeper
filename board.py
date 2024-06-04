@@ -22,6 +22,7 @@ class Board(tk.Tk):
         self.size = 10 if self.difficulty == "easy" else 16
         self.mines = 10 if self.difficulty == "easy" else 40
         self.puzzles = self.load_puzzles('puzzles/puzzles.json')
+        self.puzzle_window = None
         self.geometry(f"+{self.winfo_screenwidth() // 4}+{self.winfo_screenheight() // 8}")
         self.resizable(False, False)
         self.images = {
@@ -56,6 +57,9 @@ class Board(tk.Tk):
         self.buttons = [[Cell(self, row, col) for col in range(self.size)] for row in range(self.size)]
         self.game_is_on = 1
         self.timer_value = 0
+
+        self.puzzles_solved = 0
+        self.correct_puzzles_solved = 0
 
         self.create_board()
         self.safe_tile = (random.randint(0, self.size - 1), random.randint(0, self.size - 1))
@@ -176,8 +180,10 @@ class Board(tk.Tk):
             for cell in r:
                 if not cell.has_mine and cell.is_revealed:
                     squares_discovered += 1
-                    if squares_discovered == ((self.size * self.size) - self.mines):
-                        self.game_is_on = 2
+
+        if squares_discovered == ((self.size * self.size) - self.mines):
+            self.game_is_on = 2
+            self.count_puzzles_solved()
 
     def is_game_in_progress(self):
         """
@@ -193,6 +199,9 @@ class Board(tk.Tk):
                 for cell in r:
                     if cell.has_mine:
                         cell.btn.config(image=self.images["bomb_red"])
+            self.display_alert(title="Game Over!",
+                               message=f"Total Puzzles Solved: {self.puzzles_solved}\n "
+                                       f"Correct Puzzles Solved: {self.correct_puzzles_solved}")
 
         elif self.game_is_on == 2:
             self.btn_img.config(image=self.images["green"])
@@ -201,6 +210,9 @@ class Board(tk.Tk):
                     if cell.has_mine:
                         cell.btn.config(image=self.images["flag"])
             self.mines_label.config(text="0")
+            self.display_alert(title="You won!",
+                               message=f"Total Puzzles Solved: {self.puzzles_solved}\n "
+                                       f"Correct Puzzles Solved: {self.correct_puzzles_solved}")
 
     def update_mines_label(self, value):
         """
@@ -291,3 +303,29 @@ class Board(tk.Tk):
 
         self.puzzle_window.destroy()
         self.deiconify()
+
+    def count_puzzles_solved(self):
+        for r in self.buttons:
+            for cell in r:
+                if cell.user_puzzle_solution > 0:
+                    self.puzzles_solved += 1
+                    if cell.neighbor_mine_count == cell.user_puzzle_solution:
+                        self.correct_puzzles_solved += 1
+
+    def display_alert(self, title, message):
+        alert_window = tk.Toplevel(self)
+
+        x = self.winfo_x() + (self.winfo_width() - 300) // 2
+        y = self.winfo_y() + (self.winfo_height() - 125) // 2
+
+        alert_window.title(title)
+        alert_window.geometry("300x125")
+        alert_window.geometry(f"+{x}+{y}")
+        alert_window.resizable(False, False)
+        alert_window.iconphoto(False, self.images['window_icon'])
+
+        stats_label = tk.Label(alert_window, text=message, font=("Helvetica", 12), pady=20)
+        stats_label.pack()
+
+        ok_button = tk.Button(alert_window, text="  OK  ", command=alert_window.destroy, font=("Helvetica", 12))
+        ok_button.pack()
