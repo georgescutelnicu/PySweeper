@@ -1,3 +1,4 @@
+import winsound
 import random
 
 
@@ -31,7 +32,7 @@ class Cell:
 
         self.puzzle = random.choice(self.board.puzzles[self.board.difficulty][str(self.neighbor_mine_count)])
 
-    def reveal_cell(self):
+    def reveal_cell(self, user_initiated=True):
         """
         Reveals the cell and updates its appearance.
 
@@ -46,6 +47,8 @@ class Cell:
                 if self.has_mine:
                     self.btn.config(relief="raised", image=self.board.images["bomb"])
                 else:
+                    if user_initiated:
+                        winsound.PlaySound('sounds/reveal.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
                     if self.neighbor_mine_count == 0:
                         self.btn.config(image=self.board.images["0"])
                         self.board.reveal_neighbors(self.row, self.col)
@@ -70,12 +73,14 @@ class Cell:
 
         if self.board.game_is_on == 1:
             if not self.is_revealed and self.is_flagged:
+                winsound.PlaySound('sounds/flag.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
                 self.btn.config(image=self.board.images["tile"])
                 self.is_flagged = False
                 self.board.update_mines_label(1)
             elif int(self.board.mines_label.cget("text")) <= 0:
                 return
             elif not self.is_revealed and not self.is_flagged:
+                winsound.PlaySound('sounds/flag.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
                 self.btn.config(image=self.board.images["flag"])
                 self.is_flagged = True
                 self.board.update_mines_label(-1)

@@ -1,4 +1,5 @@
 import tkinter as tk
+import winsound
 import random
 import json
 
@@ -157,7 +158,7 @@ class Board(tk.Tk):
                 neighbor_cell = self.buttons[n[0]][n[1]]
 
                 if not neighbor_cell.is_revealed:
-                    neighbor_cell.reveal_cell()
+                    neighbor_cell.reveal_cell(user_initiated=False)
 
     def check_loss(self):
         """
@@ -167,6 +168,7 @@ class Board(tk.Tk):
         for r in self.buttons:
             for cell in r:
                 if cell.has_mine and cell.is_revealed:
+                    winsound.PlaySound('sounds/lose.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
                     self.game_is_on = 0
 
     def check_win(self):
@@ -182,6 +184,7 @@ class Board(tk.Tk):
                     squares_discovered += 1
 
         if squares_discovered == ((self.size * self.size) - self.mines):
+            winsound.PlaySound('sounds/win.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
             self.game_is_on = 2
             self.count_puzzles_solved()
 
