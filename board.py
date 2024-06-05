@@ -170,6 +170,7 @@ class Board(tk.Tk):
                 if cell.has_mine and cell.is_revealed:
                     winsound.PlaySound('sounds/lose.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
                     self.game_is_on = 0
+                    self.count_puzzles_solved()
 
     def check_win(self):
         """
@@ -297,6 +298,7 @@ class Board(tk.Tk):
         """
 
         cell.btn.config(image=self.images[image_number])
+        cell.user_puzzle_solution = int(image_number)
         self.display_main_window()
 
     def display_main_window(self):
