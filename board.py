@@ -263,6 +263,7 @@ class Board(tk.Tk):
 
         self.puzzle_window = tk.Toplevel(self)
         self.puzzle_window.title("Puzzle")
+        self.puzzle_window.iconphoto(False, self.images['window_icon'])
         self.puzzle_window.geometry(f"+{self.winfo_screenwidth() // 4}+{self.winfo_screenheight() // 8}")
         self.puzzle_window.resizable(False, False)
         self.puzzle_window.protocol("WM_DELETE_WINDOW", self.display_main_window)
