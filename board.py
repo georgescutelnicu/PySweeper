@@ -81,7 +81,7 @@ class Board(tk.Tk):
 
         self.title("Minesweeper")
 
-        pad = self.size * 10 if self.size == 10 else self.size * 14
+        pad = self.size * 10 if self.size == 10 else (self.size * 14 if self.size == 16 else self.size * 16)
 
         label_frame = tk.Frame(self, relief="ridge", borderwidth=4)
         label_frame.grid(row=0, column=0, columnspan=self.size, pady=3)
