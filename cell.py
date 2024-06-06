@@ -53,14 +53,17 @@ class Cell:
                         self.btn.config(image=self.board.images["0"])
                         self.board.reveal_neighbors(self.row, self.col)
                     else:
-                        self.btn.config(image=self.board.images["question"])
-                        self.set_puzzle()
+                        if self.board.difficulty != "easy":
+                            self.btn.config(image=self.board.images["question"])
+                            self.set_puzzle()
+                        else:
+                            self.btn.config(image=self.board.images[str(self.neighbor_mine_count)])
                     if self.is_flagged:
                         self.board.update_mines_label(1)
 
                 self.board.is_game_in_progress()
 
-            elif not self.has_mine and self.neighbor_mine_count > 0:
+            elif self.board.difficulty != "easy" and not self.has_mine and self.neighbor_mine_count > 0:
                 self.board.display_puzzle_window(self)
 
     def flag(self):

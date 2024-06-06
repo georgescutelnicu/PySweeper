@@ -1,8 +1,8 @@
 from board import Board
-from difficulty import Difficulty
+from settings import Settings
 
 
 if __name__ == "__main__":
-    difficulty = Difficulty()
-    selected_difficulty = difficulty.choose_difficulty()
-    minesweeper = Board(difficulty=selected_difficulty)
+    difficulty = Settings()
+    selected_difficulty, grid_size = difficulty.choose_difficulty_and_grid_size()
+    minesweeper = Board(difficulty=selected_difficulty, grid=grid_size)

@@ -8,7 +8,7 @@ from cell import Cell
 
 class Board(tk.Tk):
 
-    def __init__(self, difficulty):
+    def __init__(self, difficulty, grid):
         """
         Initialize the game board.
 
@@ -20,10 +20,13 @@ class Board(tk.Tk):
         super().__init__()
 
         self.difficulty = difficulty
-        self.size = 10 if self.difficulty == "easy" else 16
-        self.mines = 10 if self.difficulty == "easy" else 40
+        self.grid = grid
+        self.size = 10 if grid == "10x10" else (16 if grid == "16x16" else 20)
+        self.mines = 10 if grid == "10x10" else (40 if grid == "16x16" else 70)
+
         self.puzzles = self.load_puzzles('puzzles/puzzles.json')
         self.puzzle_window = None
+
         self.geometry(f"+{self.winfo_screenwidth() // 4}+{self.winfo_screenheight() // 8}")
         self.resizable(False, False)
         self.images = {
@@ -170,7 +173,8 @@ class Board(tk.Tk):
                 if cell.has_mine and cell.is_revealed:
                     winsound.PlaySound('sounds/lose.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
                     self.game_is_on = 0
-                    self.count_puzzles_solved()
+                    if self.difficulty != "easy":
+                        self.count_puzzles_solved()
 
     def check_win(self):
         """
@@ -187,7 +191,8 @@ class Board(tk.Tk):
         if squares_discovered == ((self.size * self.size) - self.mines):
             winsound.PlaySound('sounds/win.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
             self.game_is_on = 2
-            self.count_puzzles_solved()
+            if self.difficulty != "easy":
+                self.count_puzzles_solved()
 
     def is_game_in_progress(self):
         """
@@ -203,9 +208,10 @@ class Board(tk.Tk):
                 for cell in r:
                     if cell.has_mine:
                         cell.btn.config(image=self.images["bomb_red"])
-            self.display_alert(title="Game Over!",
-                               message=f"Total Puzzles Solved: {self.puzzles_solved}\n "
-                                       f"Correct Puzzles Solved: {self.correct_puzzles_solved}")
+            if self.difficulty != "easy":
+                self.display_alert(title="Game Over!",
+                                   message=f"Total Puzzles Solved: {self.puzzles_solved}\n "
+                                           f"Correct Puzzles Solved: {self.correct_puzzles_solved}")
 
         elif self.game_is_on == 2:
             self.btn_img.config(image=self.images["green"])
@@ -214,9 +220,10 @@ class Board(tk.Tk):
                     if cell.has_mine:
                         cell.btn.config(image=self.images["flag"])
             self.mines_label.config(text="0")
-            self.display_alert(title="You won!",
-                               message=f"Total Puzzles Solved: {self.puzzles_solved}\n "
-                                       f"Correct Puzzles Solved: {self.correct_puzzles_solved}")
+            if self.difficulty != "easy":
+                self.display_alert(title="You won!",
+                                   message=f"Total Puzzles Solved: {self.puzzles_solved}\n "
+                                           f"Correct Puzzles Solved: {self.correct_puzzles_solved}")
 
     def update_mines_label(self, value):
         """
@@ -247,7 +254,7 @@ class Board(tk.Tk):
 
         self.after_cancel(self.update_timer_id)
         self.destroy()
-        Board(difficulty=self.difficulty)
+        Board(difficulty=self.difficulty, grid=self.grid)
 
     def load_puzzles(self, filename):
         with open(filename, 'r') as file:

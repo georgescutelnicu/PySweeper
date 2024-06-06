@@ -1,5 +1,5 @@
 {
-  "easy": {
+  "medium": {
     "1": [
       "(2**0).real",
       "int(True)",
@@ -73,7 +73,7 @@
       "sum(map(int, '11222'))"
     ]
   },
-  "medium": {
+  "hard": {
     "1": [
       "def func(s='abcdefghij'):\n    vowels = 'aeiou'\n    count = sum(1 for char in s if char in vowels)\n    return count % 2",
       "def func(lst=[1, 2, 3, 4, 5]):\n    total = sum(i**2 if i % 2 == 0 else i**3 for i in lst)\n    return str(total)[0]",
@@ -137,40 +137,6 @@
     "8": [
       "def func(lst=[0, 2, 4, 6]):\n    total = ''\n    for i, x in enumerate(lst):\n        total += str((i + 1) * (x ** (i % 3)))\n    return max(list(total))",
       "import math\n\ndef func(nums=[1, 2, 3, 4]):\n    total = math.prod(num for num in nums) \n    x = max(nums[:3])\n    return total // x"
-    ]
-  },
-  "hard": {
-    "1": [
-      "hard",
-      "hard"
-    ],
-    "2": [
-      "hard",
-      "hard"
-    ],
-    "3": [
-      "hard",
-      "hard"
-    ],
-    "4": [
-      "hard",
-      "hard"
-    ],
-    "5": [
-      "hard",
-      "hard"
-    ],
-    "6": [
-      "hard",
-      "hard"
-    ],
-    "7": [
-      "hard",
-      "hard"
-    ],
-    "8": [
-      "hard",
-      "hard"
     ]
   }
 }
