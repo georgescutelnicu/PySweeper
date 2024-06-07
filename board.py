@@ -66,6 +66,7 @@ class Board(tk.Tk):
         self.correct_puzzles_solved = 0
 
         self.create_board()
+        self.create_menu()
         self.safe_tile = (random.randint(0, self.size - 1), random.randint(0, self.size - 1))
         self.buttons[self.safe_tile[0]][self.safe_tile[1]].btn.config(image=self.images["safe_tile"])
 
@@ -106,6 +107,43 @@ class Board(tk.Tk):
                 button.grid(row=r + 1, column=c)
                 button.bind("<Button-3>", lambda event, row=r, col=c: self.buttons[row][col].flag())
                 self.buttons[r][c].btn = button
+
+    def create_menu(self):
+        """
+        Create the menu bar for the application.
+        """
+
+        menu_bar = tk.Menu(self)
+        file_menu = tk.Menu(menu_bar, tearoff=0)
+        settings_menu = tk.Menu(menu_bar, tearoff=0)
+        difficulty_menu = tk.Menu(settings_menu, tearoff=0)
+        grid_menu = tk.Menu(settings_menu, tearoff=0)
+        about_menu = tk.Menu(menu_bar, tearoff=0)
+
+        file_menu.add_command(label="New Game", command=self.restart_game)
+        file_menu.add_command(label="Statistics", command=self.restart_game)
+        file_menu.add_separator()
+        file_menu.add_command(label="Exit", command=self.quit)
+
+        for _dif in ["easy", "medium", "hard"]:
+            difficulty_menu.add_radiobutton(
+                label=_dif.capitalize(),
+                command=lambda difficulty=_dif: self.restart_game(difficulty=difficulty, grid=self.grid)
+            )
+        for _grid in ["10x10", "16x16", "20x20"]:
+            grid_menu.add_radiobutton(
+                label=_grid,
+                command=lambda grid_size=_grid: self.restart_game(difficulty=self.difficulty, grid=grid_size)
+            )
+
+        about_menu.add_command(label="Open GitHub", command=self.restart_game)
+
+        menu_bar.add_cascade(label="File", menu=file_menu)
+        menu_bar.add_cascade(label="Settings", menu=settings_menu)
+        settings_menu.add_cascade(label="Difficulty", menu=difficulty_menu)
+        settings_menu.add_cascade(label="Grid Size", menu=grid_menu)
+        menu_bar.add_cascade(label="About", menu=about_menu)
+        self.config(menu=menu_bar)
 
     def generate_mines(self, safe_tile):
         """
@@ -247,10 +285,19 @@ class Board(tk.Tk):
             self.timer_value += 1
             self.update_timer_id = self.after(1000, self.update_timer)
 
-    def restart_game(self):
+    def restart_game(self, difficulty=None, grid=None):
         """
         Restart the game by destroying the current window and creating a new game instance.
+
+        Parameters:
+        - difficulty (str, optional): The difficulty level for the new game. Can be "easy", "medium", or "hard".
+                                      If None, the current difficulty is used.
+        - grid (str, optional): The grid size for the new game. Can be "10x10", "16x16", or "20x20".
+                                If None, the current grid size is used.
         """
+
+        self.difficulty = difficulty if difficulty is not None else self.difficulty
+        self.grid = grid if grid is not None else self.grid
 
         self.after_cancel(self.update_timer_id)
         self.destroy()
