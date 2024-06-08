@@ -1,8 +1,8 @@
 import tkinter as tk
-import winsound
 import random
 import json
 
+from utils import play_sound, open_github
 from statistics import Statistics
 from cell import Cell
 
@@ -140,7 +140,7 @@ class Board(tk.Tk):
                 command=lambda grid_size=_grid: self.restart_game(difficulty=self.difficulty, grid=grid_size)
             )
 
-        about_menu.add_command(label="Open GitHub", command=self.restart_game)
+        about_menu.add_command(label="Open GitHub", command=open_github)
 
         menu_bar.add_cascade(label="File", menu=file_menu)
         menu_bar.add_cascade(label="Settings", menu=settings_menu)
@@ -213,7 +213,7 @@ class Board(tk.Tk):
         for r in self.buttons:
             for cell in r:
                 if cell.has_mine and cell.is_revealed:
-                    winsound.PlaySound('sounds/lose.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
+                    play_sound('sounds/lose.wav')
                     self.game_is_on = 0
                     if self.difficulty != "easy":
                         self.count_puzzles_solved()
@@ -231,7 +231,7 @@ class Board(tk.Tk):
                     squares_discovered += 1
 
         if squares_discovered == ((self.size * self.size) - self.mines):
-            winsound.PlaySound('sounds/win.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
+            play_sound('sounds/win.wav')
             self.game_is_on = 2
             if self.difficulty != "easy":
                 self.count_puzzles_solved()
