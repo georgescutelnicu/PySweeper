@@ -1,0 +1,71 @@
+{
+    "10x10": {
+        "easy": {
+            "total_games_played": 0,
+            "total_wins": 0,
+            "total_losses": 0,
+            "best_time": 9999,
+            "win_loss_ratio": "0%"
+        },
+        "medium": {
+            "total_games_played": 0,
+            "total_wins": 0,
+            "total_losses": 0,
+            "best_time": 9999,
+            "win_loss_ratio": "0%"
+        },
+        "hard": {
+            "total_games_played": 0,
+            "total_wins": 0,
+            "total_losses": 0,
+            "best_time": 9999,
+            "win_loss_ratio": "0%"
+        }
+    },
+    "16x16": {
+        "easy": {
+            "total_games_played": 0,
+            "total_wins": 0,
+            "total_losses": 0,
+            "best_time": 9999,
+            "win_loss_ratio": "0%"
+        },
+        "medium": {
+            "total_games_played": 0,
+            "total_wins": 0,
+            "total_losses": 0,
+            "best_time": 9999,
+            "win_loss_ratio": "0%"
+        },
+        "hard": {
+            "total_games_played": 0,
+            "total_wins": 0,
+            "total_losses": 0,
+            "best_time": 9999,
+            "win_loss_ratio": "0%"
+        }
+    },
+    "20x20": {
+        "easy": {
+            "total_games_played": 0,
+            "total_wins": 0,
+            "total_losses": 0,
+            "best_time": 9999,
+            "win_loss_ratio": "0%"
+        },
+        "medium": {
+            "total_games_played": 0,
+            "total_wins": 0,
+            "total_losses": 0,
+            "best_time": 9999,
+            "win_loss_ratio": "0%"
+        },
+        "hard": {
+            "total_games_played": 0,
+            "total_wins": 0,
+            "total_losses": 0,
+            "best_time": 9999,
+            "win_loss_ratio": "0%"
+        }
+    }
+}

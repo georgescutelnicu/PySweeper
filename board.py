@@ -3,6 +3,7 @@ import winsound
 import random
 import json
 
+from statistics import Statistics
 from cell import Cell
 
 
@@ -23,6 +24,9 @@ class Board(tk.Tk):
         self.grid = grid
         self.size = 10 if grid == "10x10" else (16 if grid == "16x16" else 20)
         self.mines = 10 if grid == "10x10" else (40 if grid == "16x16" else 70)
+
+        self.statistics = Statistics()
+        self.statistics.load_statistics()
 
         self.puzzles = self.load_puzzles('puzzles/puzzles.json')
         self.puzzle_window = None
@@ -121,7 +125,7 @@ class Board(tk.Tk):
         about_menu = tk.Menu(menu_bar, tearoff=0)
 
         file_menu.add_command(label="New Game", command=self.restart_game)
-        file_menu.add_command(label="Statistics", command=self.restart_game)
+        file_menu.add_command(label="Statistics", command=self.statistics.show_statistics)
         file_menu.add_separator()
         file_menu.add_command(label="Exit", command=self.quit)
 
