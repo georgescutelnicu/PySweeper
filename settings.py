@@ -28,7 +28,7 @@ class Settings(tk.Tk):
                                          font=("Helvetica", 12), command=self.update_grid_size)
         self.grid_16x16 = tk.Radiobutton(self, text="16x16", variable=self.grid_size, value="16x16",
                                          font=("Helvetica", 12), command=self.update_grid_size)
-        self.grid_20x20 = tk.Radiobutton(self, text="20x20", variable=self.grid_size, value="16x30",
+        self.grid_20x20 = tk.Radiobutton(self, text="20x20", variable=self.grid_size, value="20x20",
                                          font=("Helvetica", 12), command=self.update_grid_size)
 
         self.easy_difficulty.grid(row=0, column=0, padx=10, pady=5)
