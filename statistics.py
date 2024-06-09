@@ -1,5 +1,5 @@
-import tkinter as tk
 import tkinter.ttk as ttk
+import tkinter as tk
 import json
 
 
@@ -17,7 +17,7 @@ class Statistics:
         Load statistics from a JSON file.
         """
 
-        with open(self.filename, 'r') as file:
+        with open(self.filename, "r") as file:
             return json.load(file)
 
     def update_statistics(self, grid, difficulty, win, time_taken):
@@ -56,7 +56,7 @@ class Statistics:
         statistics_window.title("Statistics")
         statistics_window.geometry("750x250")
         statistics_window.resizable(False, False)
-        statistics_window.iconphoto(False, tk.PhotoImage(file='images/icon.png'))
+        statistics_window.iconphoto(False, tk.PhotoImage(file="images/icon.png"))
 
         tree = ttk.Treeview(statistics_window, columns=("Total Games", "Total Wins",
                                                         "Total Losses", "Best Time", "Win/Loss Ratio"))
