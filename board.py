@@ -235,6 +235,8 @@ class Board(tk.Tk):
                 self.display_alert(title="Game Over!",
                                    message=f"Total Puzzles Solved: {self.puzzle_manager.puzzles_solved}\n "
                                            f"Correct Puzzles Solved: {self.puzzle_manager.correct_puzzles_solved}")
+            self.statistics.update_statistics(grid=self.grid, difficulty=self.difficulty,
+                                              win=False, time_taken=self.timer_value)
 
         elif self.game_is_on == 2:
             self.btn_img.config(image=self.images["green"])
@@ -247,6 +249,8 @@ class Board(tk.Tk):
                 self.display_alert(title="You won!",
                                    message=f"Total Puzzles Solved: {self.puzzle_manager.puzzles_solved}\n "
                                            f"Correct Puzzles Solved: {self.puzzle_manager.correct_puzzles_solved}")
+            self.statistics.update_statistics(grid=self.grid, difficulty=self.difficulty,
+                                              win=True, time_taken=self.timer_value)
 
     def update_mines_label(self, value):
         """

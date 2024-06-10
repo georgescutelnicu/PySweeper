@@ -20,6 +20,14 @@ class Statistics:
         with open(self.filename, "r") as file:
             return json.load(file)
 
+    def save_statistics(self):
+        """
+        Save the statistics to a JSON file.
+        """
+
+        with open(self.filename, "w") as file:
+            json.dump(self.statistics, file, indent=4)
+
     def update_statistics(self, grid, difficulty, win, time_taken):
         """
         Update the statistics based on the outcome of a game.
@@ -38,7 +46,7 @@ class Statistics:
         else:
             self.statistics[grid][difficulty]["total_losses"] += 1
 
-        if time_taken < self.statistics[grid][difficulty]["best_time"]:
+        if win is True and time_taken < self.statistics[grid][difficulty]["best_time"]:
             self.statistics[grid][difficulty]["best_time"] = time_taken
 
         total_games = self.statistics[grid][difficulty]["total_games_played"]
@@ -46,6 +54,8 @@ class Statistics:
         if total_games > 0:
             win_loss_ratio = total_wins / total_games * 100
             self.statistics[grid][difficulty]["win_loss_ratio"] = f"{win_loss_ratio:.2f}%"
+
+        self.save_statistics()
 
     def show_statistics(self):
         """
