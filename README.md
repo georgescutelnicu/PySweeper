@@ -1,5 +1,5 @@
 # Minesweeper +
-
+<br>
 
 ## Rules
 
@@ -23,6 +23,7 @@
 - **Easy:** Perfect for beginners. No programming puzzles; simply focus on revealing safe squares.
 - **Medium:** Provides simple Python programming puzzles to solve while playing.
 - **Hard:** Offers more complex programming puzzles, for players seeking a greater challenge.
+<br>
 
 ## Clone Repository and Start the Game
 ```bash
@@ -31,11 +32,10 @@ git clone https://github.com/georgescutelnicu/minesweeper.git
 ```bash
 python main.py
 ```
-
+<br>
 
 ## Prerequisites
 - Make sure you have Python 3.x installed on your system.
-
 <br>
 
 ## Screenshots
