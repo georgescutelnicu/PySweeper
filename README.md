@@ -17,6 +17,7 @@
 - **Various Difficulty Levels:** Choose from easy, medium, and hard difficulty levels to suit your preference.
 - **Grid Sizes:** Play on grid sizes of 10x10, 16x16, or 20x20.
 - **Statistics:** Track your performance with detailed statistics.
+- **Cool icons & sounds:** Enjoy clear visuals and nice sounds for a great experience.
 <br>
 
 ## Difficulty Levels
