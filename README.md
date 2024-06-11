@@ -3,10 +3,10 @@
 
 ## Rules
 
-- The objective is to reveal all safe cells without detonating any mines.
-- Left-click to reveal cells. The number inside a cell indicates the number of neighboring mines.
-- Right-click to flag potential mines. Use flags to mark cells you suspect contain mines.
-- Be cautious! If you reveal a cell with a mine, you lose the game.
+- The objective is to reveal all safe cells without encounter any snake.
+- Left-click to reveal cells. The number inside a cell indicates the number of neighboring snakes.
+- Right-click to flag potential snakes. Use flags to mark cells you suspect contain snakes.
+- Be cautious! If you reveal a cell with a snake, you lose the game.
 - Win by revealing all safe cells.
 <br>
 
@@ -16,6 +16,7 @@
 - **User-Friendly Interface:** Simple yet intuitive interface for a good gaming experience.
 - **Various Difficulty Levels:** Choose from easy, medium, and hard difficulty levels to suit your preference.
 - **Grid Sizes:** Play on grid sizes of 10x10, 16x16, or 20x20.
+- **Statistics:** Track your performance with detailed statistics.
 <br>
 
 ## Difficulty Levels
