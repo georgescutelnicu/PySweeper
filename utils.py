@@ -4,10 +4,10 @@ import winsound
 
 def open_github():
     """
-    Open the GitHub repository for the Minesweeper project.
+    Open the GitHub repository for the PySweeper project.
     """
 
-    github_url = "https://github.com/georgescutelnicu/Minesweeper"
+    github_url = "https://github.com/georgescutelnicu/PySweeper"
     webbrowser.open(github_url)
 
 

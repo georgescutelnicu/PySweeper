@@ -35,7 +35,7 @@ class Board(tk.Tk):
 
         self.image_files = [
             "safe", "0", "1", "2", "3", "4", "5", "6", "7", "8",
-            "question", "bomb", "bomb_red", "flag", "tile", "yellow",
+            "question", "py", "py_green", "flag", "tile", "yellow",
             "green", "red", "timer", "icon"
         ]
         self.images = {name: tk.PhotoImage(file=f"images/{name}.png") for name in self.image_files}
@@ -65,14 +65,14 @@ class Board(tk.Tk):
         Create and initialize the graphical game board with buttons and labels.
         """
 
-        self.title("Minesweeper")
+        self.title("PySweeper")
 
         pad = self.size * 10 if self.size == 10 else (self.size * 14 if self.size == 16 else self.size * 16)
 
         label_frame = tk.Frame(self, relief="ridge", borderwidth=4)
         label_frame.grid(row=0, column=0, columnspan=self.size, pady=3)
 
-        mines_img = tk.Label(label_frame, image=self.images["bomb"])
+        mines_img = tk.Label(label_frame, image=self.images["py"])
         mines_img.grid(row=0, column=0, sticky="w")
         self.mines_label = tk.Label(label_frame, text=self.mines, font=("normal", 15), width=3)
         self.mines_label.grid(row=0, column=1, sticky="w")
@@ -230,7 +230,7 @@ class Board(tk.Tk):
             for r in self.buttons:
                 for cell in r:
                     if cell.has_mine:
-                        cell.btn.config(image=self.images["bomb_red"])
+                        cell.btn.config(image=self.images["py_green"])
             if self.difficulty != "easy":
                 self.display_alert(title="Game Over!",
                                    message=f"Total Puzzles Solved: {self.puzzle_manager.puzzles_solved}\n "

@@ -37,7 +37,7 @@ class Cell:
             if not self.is_revealed:
                 self.is_revealed = True
                 if self.has_mine:
-                    self.btn.config(relief="raised", image=self.board.images["bomb"])
+                    self.btn.config(relief="raised", image=self.board.images["py"])
                 else:
                     if user_initiated:
                         play_sound("sounds/reveal.wav")
