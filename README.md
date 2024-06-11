@@ -1,4 +1,4 @@
-# Minesweeper +
+# PySweeper
 <br>
 
 ## Rules
@@ -27,7 +27,7 @@
 
 ## Clone Repository and Start the Game
 ```bash
-git clone https://github.com/georgescutelnicu/minesweeper.git
+git clone https://github.com/georgescutelnicu/PySweeper.git
 ```
 ```bash
 python main.py
