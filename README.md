@@ -41,6 +41,6 @@ python main.py
 <br>
 
 ## Screenshots
-<img src="extras/W.png" width="333">
+<img src="extras/w.png" width="333">
 <img src="extras/p.png" width="333">
 <img src="extras/s.png" width="666">
