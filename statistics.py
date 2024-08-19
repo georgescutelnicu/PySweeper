@@ -1,3 +1,4 @@
+from tkinter import messagebox
 import tkinter.ttk as ttk
 import tkinter as tk
 import json
@@ -55,6 +56,24 @@ class Statistics:
             win_loss_ratio = total_wins / total_games * 100
             self.statistics[grid][difficulty]["win_loss_ratio"] = f"{win_loss_ratio:.2f}%"
 
+        self.save_statistics()
+
+    def reset_statistics(self):
+        """
+        Reset the statistics.
+        """
+
+        for grid_size, difficulties in self.statistics.items():
+            for difficulty in difficulties:
+                self.statistics[grid_size][difficulty] = {
+                    "total_games_played": 0,
+                    "total_wins": 0,
+                    "total_losses": 0,
+                    "best_time": 9999,
+                    "win_loss_ratio": "0%"
+                }
+
+        tk.messagebox.showinfo("Statistics Reset", "All statistics have been reset to their default values.")
         self.save_statistics()
 
     def show_statistics(self):

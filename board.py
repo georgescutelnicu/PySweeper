@@ -110,6 +110,8 @@ class Board(tk.Tk):
         file_menu.add_separator()
         file_menu.add_command(label="Exit", command=self.quit)
 
+        settings_menu.add_command(label="Reset Statistics", command=self.statistics.reset_statistics)
+
         for _dif in ["easy", "medium", "hard"]:
             difficulty_menu.add_radiobutton(
                 label=_dif.capitalize(),
