@@ -14,8 +14,8 @@ class Board(tk.Tk):
         Initialize the game board.
 
         Parameters:
-        - size (int): The size of the board. (It is chosen based on the difficulty)
-        - mines (int): The number of mines to be placed on the board. (It is chosen based on the difficulty)
+        - difficulty (str): The difficulty level of the game.
+        - grid (str): The grid size of the board, which determines the board's dimensions and number of mines.
         """
 
         super().__init__()
@@ -135,6 +135,10 @@ class Board(tk.Tk):
     def generate_mines(self, safe_tile):
         """
         Randomly generate mine locations and update neighbor mine counts.
+
+        Parameters:
+        - safe_tile (tuple): A tuple (row, col) representing the coordinates of the safe tile
+        where no mines should be placed or adjacent to.
         """
 
         mines_generated = []

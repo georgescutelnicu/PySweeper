@@ -31,6 +31,10 @@ class Cell:
         If the cell contains a mine, it will display the mine; otherwise, it displays the
         number of neighboring mines. If the cell has no neighboring mines, it reveals
         adjacent cells as well.
+
+        Parameters:
+        - user_initiated (bool): Indicates whether the cell reveal was initiated by the user.
+          If True, a sound will be played upon revealing a non-mine cell. Default is True.
         """
 
         if self.board.game_is_on == 1:
@@ -86,7 +90,6 @@ class Cell:
         Update the image of the cell's button, the user's puzzle solution and return to the main game window.
 
         Parameters:
-        - cell (Cell): The cell object whose button image needs to be updated.
         - image_number (str): The key corresponding to the new image in the self.images dictionary.
         """
 
