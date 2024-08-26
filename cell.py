@@ -43,7 +43,7 @@ class Cell:
                 if self.has_mine:
                     self.btn.config(relief="raised", image=self.board.images["py"])
                 else:
-                    if user_initiated:
+                    if user_initiated and self.board.sound == "ON":
                         play_sound("sounds/reveal.wav")
                     if self.neighbor_mine_count == 0:
                         self.btn.config(image=self.board.images["0"])
@@ -73,14 +73,16 @@ class Cell:
 
         if self.board.game_is_on == 1:
             if not self.is_revealed and self.is_flagged:
-                play_sound("sounds/flag.wav")
+                if self.board.sound == "ON":
+                    play_sound("sounds/flag.wav")
                 self.btn.config(image=self.board.images["tile"])
                 self.is_flagged = False
                 self.board.update_mines_label(1)
             elif int(self.board.mines_label.cget("text")) <= 0:
                 return
             elif not self.is_revealed and not self.is_flagged:
-                play_sound("sounds/flag.wav")
+                if self.board.sound == "ON":
+                    play_sound("sounds/flag.wav")
                 self.btn.config(image=self.board.images["flag"])
                 self.is_flagged = True
                 self.board.update_mines_label(-1)

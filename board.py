@@ -1,7 +1,7 @@
 import tkinter as tk
 import random
 
-from utils import play_sound, open_github
+from utils import play_sound, open_github, toggle_sound
 from statistics import Statistics
 from puzzle import PuzzleManager
 from cell import Cell
@@ -24,6 +24,9 @@ class Board(tk.Tk):
         self.grid = grid
         self.size = 10 if grid == "10x10" else (16 if grid == "16x16" else 20)
         self.mines = 10 if grid == "10x10" else (40 if grid == "16x16" else 70)
+
+        self.settings_menu = None
+        self.sound = "ON"
 
         self.statistics = Statistics()
         self.statistics.load_statistics()
@@ -123,6 +126,8 @@ class Board(tk.Tk):
                 command=lambda grid_size=_grid: self.restart_game(difficulty=self.difficulty, grid=grid_size)
             )
 
+        settings_menu.add_command(label=f"Sound {self.sound}", command=lambda: toggle_sound(self))
+
         about_menu.add_command(label="Open GitHub", command=open_github)
 
         menu_bar.add_cascade(label="File", menu=file_menu)
@@ -130,6 +135,8 @@ class Board(tk.Tk):
         settings_menu.add_cascade(label="Difficulty", menu=difficulty_menu)
         settings_menu.add_cascade(label="Grid Size", menu=grid_menu)
         menu_bar.add_cascade(label="About", menu=about_menu)
+
+        self.settings_menu = settings_menu
         self.config(menu=menu_bar)
 
     def generate_mines(self, safe_tile):
@@ -200,7 +207,8 @@ class Board(tk.Tk):
         for r in self.buttons:
             for cell in r:
                 if cell.has_mine and cell.is_revealed:
-                    play_sound("sounds/lose.wav")
+                    if self.sound == "ON":
+                        play_sound("sounds/lose.wav")
                     self.game_is_on = 0
                     if self.difficulty != "easy":
                         self.puzzle_manager.count_puzzles_solved(self)
@@ -218,7 +226,8 @@ class Board(tk.Tk):
                     squares_discovered += 1
 
         if squares_discovered == ((self.size * self.size) - self.mines):
-            play_sound("sounds/win.wav")
+            if self.sound == "ON":
+                play_sound("sounds/win.wav")
             self.game_is_on = 2
             if self.difficulty != "easy":
                 self.puzzle_manager.count_puzzles_solved(self)
