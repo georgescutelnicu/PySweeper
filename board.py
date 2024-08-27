@@ -9,7 +9,7 @@ from cell import Cell
 
 class Board(tk.Tk):
 
-    def __init__(self, difficulty, grid):
+    def __init__(self, difficulty, grid, sound="ON"):
         """
         Initialize the game board.
 
@@ -26,7 +26,7 @@ class Board(tk.Tk):
         self.mines = 10 if grid == "10x10" else (40 if grid == "16x16" else 70)
 
         self.settings_menu = None
-        self.sound = "ON"
+        self.sound = sound
 
         self.statistics = Statistics()
         self.statistics.load_statistics()
@@ -305,7 +305,7 @@ class Board(tk.Tk):
 
         self.after_cancel(self.update_timer_id)
         self.destroy()
-        Board(difficulty=self.difficulty, grid=self.grid)
+        Board(difficulty=self.difficulty, grid=self.grid, sound=self.sound)
 
     def display_window(self):
         """
