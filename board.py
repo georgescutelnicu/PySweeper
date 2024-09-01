@@ -1,7 +1,7 @@
 import tkinter as tk
 import random
 
-from utils import play_sound, open_github, toggle_sound
+from utils import play_sound, open_github, open_rules, toggle_sound
 from statistics import Statistics
 from puzzle import PuzzleManager
 from cell import Cell
@@ -128,7 +128,8 @@ class Board(tk.Tk):
 
         settings_menu.add_command(label=f"Sound {self.sound}", command=lambda: toggle_sound(self))
 
-        about_menu.add_command(label="Open GitHub", command=open_github)
+        about_menu.add_command(label="Rules", command=open_rules)
+        about_menu.add_command(label="GitHub", command=open_github)
 
         menu_bar.add_cascade(label="File", menu=file_menu)
         menu_bar.add_cascade(label="Settings", menu=settings_menu)

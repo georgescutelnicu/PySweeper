@@ -11,6 +11,15 @@ def open_github():
     webbrowser.open(github_url)
 
 
+def open_rules():
+    """
+    Open the rules for PySweeper.
+    """
+
+    rules_url = "https://github.com/georgescutelnicu/PySweeper/tree/main/rules"
+    webbrowser.open(rules_url)
+
+
 def play_sound(sound_path):
     """
     Play a sound file.
