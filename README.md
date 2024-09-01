@@ -1,15 +1,6 @@
 # PySweeper
 <br>
 
-## Rules
-
-- The objective is to reveal all safe cells without encounter any snake.
-- Left-click to reveal cells. The number inside a cell indicates the number of neighboring snakes.
-- Right-click to flag potential snakes. Use flags to mark cells you suspect contain snakes.
-- Be cautious! If you reveal a cell with a snake, you lose the game.
-- Win by revealing all safe cells.
-<br>
-
 ## Features
 
 - **Programming Puzzles:** Tackle logic puzzles to reveal safe squares.
@@ -25,6 +16,7 @@
 - **Easy:** Perfect for beginners. No programming puzzles; simply focus on revealing safe squares.
 - **Medium:** Provides simple Python programming puzzles to solve while playing.
 - **Hard:** Offers more complex programming puzzles, for players seeking a greater challenge.
+
 <br>
 
 ## Clone Repository and Start the Game
