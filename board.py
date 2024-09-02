@@ -185,20 +185,34 @@ class Board(tk.Tk):
 
         neighbors = []
 
+        # Gather the list of all neighbors
         for i in [-1, 0, 1]:
             for j in [-1, 0, 1]:
                 if i == 0 and j == 0:
                     continue
                 r = row + i
                 c = col + j
-                neighbors.append((r, c))
+                if 0 <= r < self.size and 0 <= c < self.size:
+                    neighbors.append((r, c))
 
-        for n in neighbors:
-            if (0 <= n[0] < self.size) and (0 <= n[1] < self.size):
-                neighbor_cell = self.buttons[n[0]][n[1]]
+        def reveal_with_delay(index=0):
+            """Reveals neighboring cells with a delay.
 
-                if not neighbor_cell.is_revealed:
+            Parameters:
+            - index (int): The index of the current cell in the neighbors list to be revealed.
+                   Starts from 0 and is incremented in each recursive call to process the next neighbor.
+            """
+
+            if index < len(neighbors):
+                rx, cx = neighbors[index]
+                neighbor_cell = self.buttons[rx][cx]
+
+                if not neighbor_cell.is_revealed and not neighbor_cell.has_mine:
                     neighbor_cell.reveal_cell(user_initiated=False)
+
+                self.after(10, lambda: reveal_with_delay(index + 1))
+
+        reveal_with_delay()
 
     def check_loss(self):
         """
