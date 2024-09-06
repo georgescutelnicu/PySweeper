@@ -111,7 +111,7 @@ class Board(tk.Tk):
         file_menu.add_command(label="New Game", command=self.restart_game)
         file_menu.add_command(label="Statistics", command=self.statistics.show_statistics)
         file_menu.add_separator()
-        file_menu.add_command(label="Exit", command=self.quit)
+        file_menu.add_command(label="Exit", command=self.destroy)
 
         settings_menu.add_command(label="Reset Statistics", command=self.statistics.reset_statistics)
 
