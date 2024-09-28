@@ -262,9 +262,11 @@ class Board(tk.Tk):
                     if cell.has_mine:
                         cell.btn.config(image=self.images["py_green"])
             if self.difficulty != "easy":
+                failed_attempts = self.puzzle_manager.puzzles_solved - self.puzzle_manager.correct_puzzles_solved
                 self.display_alert(title="Game Over!",
                                    message=f"Total Puzzles Solved: {self.puzzle_manager.puzzles_solved}\n "
-                                           f"Correct Puzzles Solved: {self.puzzle_manager.correct_puzzles_solved}")
+                                           f"Correct Puzzles Solved: {self.puzzle_manager.correct_puzzles_solved}\n "
+                                           f"Failed Attempts: {failed_attempts}")
             self.statistics.update_statistics(grid=self.grid, difficulty=self.difficulty,
                                               win=False, time_taken=self.timer_value)
 
@@ -276,9 +278,11 @@ class Board(tk.Tk):
                         cell.btn.config(image=self.images["flag"])
             self.mines_label.config(text="0")
             if self.difficulty != "easy":
+                failed_attempts = self.puzzle_manager.puzzles_solved - self.puzzle_manager.correct_puzzles_solved
                 self.display_alert(title="You won!",
                                    message=f"Total Puzzles Solved: {self.puzzle_manager.puzzles_solved}\n "
-                                           f"Correct Puzzles Solved: {self.puzzle_manager.correct_puzzles_solved}")
+                                           f"Correct Puzzles Solved: {self.puzzle_manager.correct_puzzles_solved}\n "
+                                           f"Failed Attempts: {failed_attempts}")
             self.statistics.update_statistics(grid=self.grid, difficulty=self.difficulty,
                                               win=True, time_taken=self.timer_value)
 
