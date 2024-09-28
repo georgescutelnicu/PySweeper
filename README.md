@@ -36,3 +36,5 @@ python main.py
 <img src="extras/w.png" width="333">
 <img src="extras/p.png" width="333">
 <img src="extras/s.png" width="666">
+
+[Rules](https://github.com/georgescutelnicu/PySweeper/tree/main/rules)
