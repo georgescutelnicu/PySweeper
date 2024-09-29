@@ -38,8 +38,8 @@ class Board(tk.Tk):
 
         self.image_files = [
             "safe", "0", "1", "2", "3", "4", "5", "6", "7", "8",
-            "question", "py", "py_green", "flag", "tile", "yellow",
-            "green", "red", "timer", "icon"
+            "question", "py", "py_green", "flag", "question_mark",
+            "tile", "yellow", "green", "red", "timer", "icon"
         ]
         self.images = {name: tk.PhotoImage(file=f"images/{name}.png") for name in self.image_files}
         self.iconphoto(False, self.images["icon"])
@@ -93,6 +93,7 @@ class Board(tk.Tk):
                 button = tk.Button(self, width=40, height=40, relief="flat", borderwidth=0,
                                    command=self.buttons[r][c].reveal_cell, image=self.images["tile"])
                 button.grid(row=r + 1, column=c)
+                button.bind("<Button-2>", lambda event, row=r, col=c: self.buttons[row][col].question_mark())
                 button.bind("<Button-3>", lambda event, row=r, col=c: self.buttons[row][col].flag())
                 self.buttons[r][c].btn = button
 

@@ -18,6 +18,7 @@ class Cell:
         self.has_mine = False
         self.is_revealed = False
         self.is_flagged = False
+        self.is_marked = False
         self.neighbor_mine_count = 0
         self.puzzle = None
         self.user_puzzle_solution = 0
@@ -80,12 +81,28 @@ class Cell:
                 self.board.update_mines_label(1)
             elif int(self.board.mines_label.cget("text")) <= 0:
                 return
-            elif not self.is_revealed and not self.is_flagged:
+            elif not self.is_revealed and not self.is_marked and not self.is_flagged:
                 if self.board.sound == "ON":
                     play_sound("sounds/flag.wav")
                 self.btn.config(image=self.board.images["flag"])
                 self.is_flagged = True
                 self.board.update_mines_label(-1)
+
+    def question_mark(self):
+        """
+        Toggles is_marked variable on or off.
+
+        If the cell is not revealed, flagged, or already marked, it marks the cell with a question mark.
+        If the cell is already marked, it removes the mark.
+        """
+
+        if self.board.game_is_on == 1:
+            if not self.is_revealed and not self.is_marked and not self.is_flagged:
+                self.btn.config(image=self.board.images["question_mark"])
+                self.is_marked = True
+            elif not self.is_revealed and self.is_marked:
+                self.btn.config(image=self.board.images["tile"])
+                self.is_marked = False
 
     def update_cell(self, image_number):
         """
