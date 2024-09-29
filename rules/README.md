@@ -13,6 +13,11 @@ The objective of PySweeper is to clear a rectangular board without revealing any
     - Flagging cells helps you remember which ones you believe contain snakes.
     - You can unflag a cell by right-clicking again.
 
+3. **Mark Cells with Question Marks**:
+   - Middle-click (scroll wheel click) to mark a cell with a question mark (?) if you are unsure about its contents.
+   - Marking a cell with a question mark helps you remember that you are uncertain about the cell.
+   - You can remove the question mark by middle-clicking the cell again.
+
 3. **Solve Puzzles (Medium and Hard Difficulty Levels Only)**:  
     - When playing on **Medium** or **Hard** difficulty, revealing certain cells will display a question mark (`?`) instead of a number.
     - To reveal the true number of adjacent snakes, click on the cell with the question mark.
